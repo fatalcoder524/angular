@@ -30,7 +30,8 @@ enum DateType {
   Minutes,
   Seconds,
   FractionalSeconds,
-  Day
+  Day,
+  FullIsoYear
 }
 
 enum TranslationType {
@@ -230,6 +231,8 @@ function getDatePart(part: DateType, date: Date): number {
   switch (part) {
     case DateType.FullYear:
       return date.getFullYear();
+    case DateType.FullIsoYear:
+      return date.getFullIsoYear();
     case DateType.Month:
       return date.getMonth();
     case DateType.Date:
@@ -435,6 +438,10 @@ function getDateFormatter(format: string): DateFormatter|null {
       break;
     // 4 digit representation of the year (e.g. AD 1 => 0001, AD 2010 => 2010)
     case 'yyyy':
+      formatter = dateGetter(DateType.FullYear, 4, 0, false, true);
+      break;
+      
+    case 'rrrr':
       formatter = dateGetter(DateType.FullYear, 4, 0, false, true);
       break;
 
